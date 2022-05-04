@@ -1,0 +1,63 @@
+﻿<Window x:Class="VikingRejser.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VikingRejser"
+        xmlns:views="clr-namespace:VikingRejser.Views"
+        xmlns:viewModels="clr-namespace:VikingRejser.ViewModels"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.DataContext>
+        <local:MainWindowViewModel/>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewModels:KunderViewModel}">
+            <views:KunderView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModels:TransportViewModel}">
+            <views:TransportView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModels:ArrangementerViewModel}">
+            <views:ArrangementerView/>
+        </DataTemplate>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="NavBar">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Content="Kunder"
+            Command="{Binding NavCommand}"
+            CommandParameter="kunder"
+            Grid.Column="0" FontSize="18"/>
+
+            <Button Content="Transportører"
+            Command="{Binding NavCommand}"
+            CommandParameter="trans"
+            Grid.Column="1" FontSize="18"/>
+
+            <Button Content="Arrangementer"
+            Command="{Binding NavCommand}"
+            CommandParameter="arrang"
+            Grid.Column="2" FontSize="18"/>
+        </Grid>
+
+        <Grid x:Name="MainContent" Grid.Row="1">
+            <ContentControl Content="{Binding CurrentViewModel}"/>
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,286 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="VikingDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Kunder">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Navn" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Adresse" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Telefon" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RejsearrangementId" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rejsearrangementer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Titel" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="By" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Startdato" Type="date" Nullable="false" />
+          <Property Name="Slutdato" Type="date" Nullable="false" />
+          <Property Name="Pris" Type="int" Nullable="false" />
+          <Property Name="MaxAntal" Type="int" />
+          <Property Name="Beskrivelse" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Transportør" Type="int" />
+        </EntityType>
+        <EntityType Name="Tilmeldinger">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Rejsearrangement" Type="int" Nullable="false" />
+          <Property Name="Kunde" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Transportører">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Navn" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Adresse" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Telefon" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Bemærkninger" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Rejsearra__Trans__693CA210">
+          <End Role="Transportører" Type="Self.Transportører" Multiplicity="0..1" />
+          <End Role="Rejsearrangementer" Type="Self.Rejsearrangementer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Transportører">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Rejsearrangementer">
+              <PropertyRef Name="Transportør" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tilmeldin__Kunde__68487DD7">
+          <End Role="Kunder" Type="Self.Kunder" Multiplicity="1" />
+          <End Role="Tilmeldinger" Type="Self.Tilmeldinger" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kunder">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tilmeldinger">
+              <PropertyRef Name="Kunde" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tilmeldin__Rejse__5629CD9C">
+          <End Role="Rejsearrangementer" Type="Self.Rejsearrangementer" Multiplicity="1" />
+          <End Role="Tilmeldinger" Type="Self.Tilmeldinger" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rejsearrangementer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tilmeldinger">
+              <PropertyRef Name="Rejsearrangement" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VikingDBModelStoreContainer">
+          <EntitySet Name="Kunder" EntityType="Self.Kunder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rejsearrangementer" EntityType="Self.Rejsearrangementer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tilmeldinger" EntityType="Self.Tilmeldinger" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Transportører" EntityType="Self.Transportører" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Rejsearra__Trans__693CA210" Association="Self.FK__Rejsearra__Trans__693CA210">
+            <End Role="Transportører" EntitySet="Transportører" />
+            <End Role="Rejsearrangementer" EntitySet="Rejsearrangementer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tilmeldin__Kunde__68487DD7" Association="Self.FK__Tilmeldin__Kunde__68487DD7">
+            <End Role="Kunder" EntitySet="Kunder" />
+            <End Role="Tilmeldinger" EntitySet="Tilmeldinger" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tilmeldin__Rejse__5629CD9C" Association="Self.FK__Tilmeldin__Rejse__5629CD9C">
+            <End Role="Rejsearrangementer" EntitySet="Rejsearrangementer" />
+            <End Role="Tilmeldinger" EntitySet="Tilmeldinger" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="VikingDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Kunder">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Navn" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Adresse" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Telefon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RejsearrangementId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Tilmeldingers" Relationship="Self.FK__Tilmeldin__Kunde__68487DD7" FromRole="Kunder" ToRole="Tilmeldinger" />
+        </EntityType>
+        <EntityType Name="Rejsearrangementer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Titel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="By" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Startdato" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Slutdato" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Pris" Type="Int32" Nullable="false" />
+          <Property Name="MaxAntal" Type="Int32" />
+          <Property Name="Beskrivelse" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Transportør" Type="Int32" />
+          <NavigationProperty Name="Transportører" Relationship="Self.FK__Rejsearra__Trans__693CA210" FromRole="Rejsearrangementer" ToRole="Transportører" />
+          <NavigationProperty Name="Tilmeldingers" Relationship="Self.FK__Tilmeldin__Rejse__5629CD9C" FromRole="Rejsearrangementer" ToRole="Tilmeldinger" />
+        </EntityType>
+        <EntityType Name="Tilmeldinger">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Rejsearrangement" Type="Int32" Nullable="false" />
+          <Property Name="Kunde" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Kunder" Relationship="Self.FK__Tilmeldin__Kunde__68487DD7" FromRole="Tilmeldinger" ToRole="Kunder" />
+          <NavigationProperty Name="Rejsearrangementer" Relationship="Self.FK__Tilmeldin__Rejse__5629CD9C" FromRole="Tilmeldinger" ToRole="Rejsearrangementer" />
+        </EntityType>
+        <EntityType Name="Transportører">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Navn" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Adresse" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Telefon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Bemærkninger" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Rejsearrangementers" Relationship="Self.FK__Rejsearra__Trans__693CA210" FromRole="Transportører" ToRole="Rejsearrangementer" />
+        </EntityType>
+        <Association Name="FK__Tilmeldin__Kunde__68487DD7">
+          <End Role="Kunder" Type="Self.Kunder" Multiplicity="1" />
+          <End Role="Tilmeldinger" Type="Self.Tilmeldinger" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kunder">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tilmeldinger">
+              <PropertyRef Name="Kunde" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rejsearra__Trans__693CA210">
+          <End Role="Transportører" Type="Self.Transportører" Multiplicity="0..1" />
+          <End Role="Rejsearrangementer" Type="Self.Rejsearrangementer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Transportører">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Rejsearrangementer">
+              <PropertyRef Name="Transportør" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tilmeldin__Rejse__5629CD9C">
+          <End Role="Rejsearrangementer" Type="Self.Rejsearrangementer" Multiplicity="1" />
+          <End Role="Tilmeldinger" Type="Self.Tilmeldinger" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rejsearrangementer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tilmeldinger">
+              <PropertyRef Name="Rejsearrangement" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VikingDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Kunders" EntityType="Self.Kunder" />
+          <EntitySet Name="Rejsearrangementers" EntityType="Self.Rejsearrangementer" />
+          <EntitySet Name="Tilmeldingers" EntityType="Self.Tilmeldinger" />
+          <EntitySet Name="Transportører" EntityType="Self.Transportører" />
+          <AssociationSet Name="FK__Tilmeldin__Kunde__68487DD7" Association="Self.FK__Tilmeldin__Kunde__68487DD7">
+            <End Role="Kunder" EntitySet="Kunders" />
+            <End Role="Tilmeldinger" EntitySet="Tilmeldingers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rejsearra__Trans__693CA210" Association="Self.FK__Rejsearra__Trans__693CA210">
+            <End Role="Transportører" EntitySet="Transportører" />
+            <End Role="Rejsearrangementer" EntitySet="Rejsearrangementers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tilmeldin__Rejse__5629CD9C" Association="Self.FK__Tilmeldin__Rejse__5629CD9C">
+            <End Role="Rejsearrangementer" EntitySet="Rejsearrangementers" />
+            <End Role="Tilmeldinger" EntitySet="Tilmeldingers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="VikingDBModelStoreContainer" CdmEntityContainer="VikingDBEntities">
+          <EntitySetMapping Name="Kunders">
+            <EntityTypeMapping TypeName="VikingDBModel.Kunder">
+              <MappingFragment StoreEntitySet="Kunder">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Navn" ColumnName="Navn" />
+                <ScalarProperty Name="Adresse" ColumnName="Adresse" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="RejsearrangementId" ColumnName="RejsearrangementId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rejsearrangementers">
+            <EntityTypeMapping TypeName="VikingDBModel.Rejsearrangementer">
+              <MappingFragment StoreEntitySet="Rejsearrangementer">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Titel" ColumnName="Titel" />
+                <ScalarProperty Name="By" ColumnName="By" />
+                <ScalarProperty Name="Startdato" ColumnName="Startdato" />
+                <ScalarProperty Name="Slutdato" ColumnName="Slutdato" />
+                <ScalarProperty Name="Pris" ColumnName="Pris" />
+                <ScalarProperty Name="MaxAntal" ColumnName="MaxAntal" />
+                <ScalarProperty Name="Beskrivelse" ColumnName="Beskrivelse" />
+                <ScalarProperty Name="Transportør" ColumnName="Transportør" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tilmeldingers">
+            <EntityTypeMapping TypeName="VikingDBModel.Tilmeldinger">
+              <MappingFragment StoreEntitySet="Tilmeldinger">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Rejsearrangement" ColumnName="Rejsearrangement" />
+                <ScalarProperty Name="Kunde" ColumnName="Kunde" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transportører">
+            <EntityTypeMapping TypeName="VikingDBModel.Transportører">
+              <MappingFragment StoreEntitySet="Transportører">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Navn" ColumnName="Navn" />
+                <ScalarProperty Name="Adresse" ColumnName="Adresse" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="Bemærkninger" ColumnName="Bemærkninger" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

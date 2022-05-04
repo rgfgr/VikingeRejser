@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="VikingRejser.Views.TransportView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:VikingRejser.Views"
+             xmlns:viewModel="clr-namespace:VikingRejser.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="393" d:DesignWidth="794">
+    <UserControl.DataContext>
+        <viewModel:TransportViewModel/>
+    </UserControl.DataContext>
+    <Grid Background="#FFD8B5B5">
+        <DataGrid HorizontalAlignment="Left" Height="383" Margin="279,0,0,0" VerticalAlignment="Top" Width="515" AutoGenerateColumns="False" CanUserAddRows="False" SelectedItem="{Binding SelectedItem}" ItemsSource="{Binding SourceDG}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Navn" Binding="{Binding Navn}"/>
+                <DataGridTextColumn Header="Adresse" Binding="{Binding Adresse}"/>
+                <DataGridTextColumn Header="Telefon" Binding="{Binding Telefon}"/>
+                <DataGridTextColumn Header="Bemærkninger" Binding="{Binding Bemærkninger}"/>
+                <DataGridTextColumn Header="Rejsearrangementer" Binding="{Binding Rejsearrangementer}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="Opret" HorizontalAlignment="Left" Margin="199,363,0,0" VerticalAlignment="Top" Width="75" Command="{Binding CrCommand}" CommandParameter="s"/>
+        <Button Content="Opdater" HorizontalAlignment="Left" Margin="119,363,0,0" VerticalAlignment="Top" Width="75" Command="{Binding UpCommand}" CommandParameter="{Binding SelectedItem}"/>
+        <Button Content="Mere ind fire" HorizontalAlignment="Left" Margin="39,363,0,0" VerticalAlignment="Top" Width="75" Command="{Binding MrOneCommand}" CommandParameter="s"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="154,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding NvnText, Mode=TwoWay}"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Navn" VerticalAlignment="Top" Height="23"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="154,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding AdrText, Mode=TwoWay}"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,49,0,0" TextWrapping="Wrap" Text="Adresse" VerticalAlignment="Top" Height="23"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="154,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding TlfText, Mode=TwoWay}"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,77,0,0" TextWrapping="Wrap" Text="Telefon" VerticalAlignment="Top" Height="23"/>
+        <TextBox HorizontalAlignment="Left" Height="98" Margin="154,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding BemText, Mode=TwoWay}"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,105,0,0" TextWrapping="Wrap" Text="Bemærkninger" VerticalAlignment="Top" Height="23"/>
+
+    </Grid>
+</UserControl>

@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="VikingRejser.Views.KunderView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:VikingRejser.Views"
+             xmlns:viewModel="clr-namespace:VikingRejser.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="393" d:DesignWidth="794">
+    <UserControl.DataContext>
+        <viewModel:KunderViewModel/>
+    </UserControl.DataContext>
+    <Grid Background="#FFD8B5B5">
+        <DataGrid Margin="279,10,0,10" AutoGenerateColumns="False" x:Name="KundDG" x:FieldModifier="public" ColumnWidth="Auto" CanUserAddRows="False" SelectedItem="{Binding SelectedItem}" ItemsSource="{Binding SourceDG}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Navn" Binding="{Binding Navn}"/>
+                <DataGridTextColumn Header="Adresse" Binding="{Binding Adresse}"/>
+                <DataGridTextColumn Header="Telefon" Binding="{Binding Telefon}"/>
+                <DataGridTextColumn Header="RejseArrangementId" Binding="{Binding RejsearrangementId}"/>
+                <DataGridTextColumn Header="Tilmelding" Binding="{Binding Tilmeldingers}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <TextBox x:Name="NvnBox" HorizontalAlignment="Left" Height="23" Margin="154,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding NvnText, Mode=TwoWay}"/>
+        <TextBlock HorizontalAlignment="Left" Margin="24,58,0,0" TextWrapping="Wrap" Text="Navn" VerticalAlignment="Top" Height="23"/>
+        <TextBox x:Name="AdrBox" HorizontalAlignment="Left" Height="23" Margin="154,86,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding AdrText, Mode=TwoWay}"/>
+        <TextBlock HorizontalAlignment="Left" Margin="24,86,0,0" TextWrapping="Wrap" Text="Adresse" VerticalAlignment="Top" Height="23"/>
+        <TextBox x:Name="TlfBox" HorizontalAlignment="Left" Height="23" Margin="154,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding TlfText, Mode=TwoWay}"/>
+        <TextBlock HorizontalAlignment="Left" Margin="24,114,0,0" TextWrapping="Wrap" Text="Telefon" VerticalAlignment="Top" Height="23"/>
+        <Button x:Name="DaBtn" Content="Opdater" HorizontalAlignment="Left" Margin="119,354,0,0" VerticalAlignment="Top" Width="75" Command="{Binding UpCommand}" CommandParameter="{Binding SelectedItem}"/>
+        <Button x:Name="OpBtn" Content="Opret" HorizontalAlignment="Left" Margin="199,354,0,0" VerticalAlignment="Top" Width="75" Command="{Binding CrCommand}" CommandParameter="s"/>
+        <Button x:Name="MrOneBtn" Content="Mere ind en" HorizontalAlignment="Left" Margin="39,354,0,0" VerticalAlignment="Top" Width="75" Command="{Binding MrOneCommand}" CommandParameter="s"/>
+    </Grid>
+</UserControl>
